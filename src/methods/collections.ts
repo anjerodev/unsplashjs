@@ -30,14 +30,11 @@ export default class Collections {
         args,
         options,
     ) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${COLLECTIONS_PATH_PREFIX}`,
-                query: args,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${COLLECTIONS_PATH_PREFIX}`,
+            query: args,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch collections.',
@@ -53,13 +50,10 @@ export default class Collections {
         options,
     ) => {
         const { collection_id } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch collection.',
@@ -77,14 +71,11 @@ export default class Collections {
         options,
     ) => {
         const { collection_id, ...params } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/photos`,
-                query: params,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/photos`,
+            query: params,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch collection photos.',
@@ -102,13 +93,10 @@ export default class Collections {
         options,
     ) => {
         const { collection_id } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/related`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/related`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch collection related.',
@@ -126,14 +114,11 @@ export default class Collections {
         args,
         options,
     ) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'POST',
-                endpoint: `${COLLECTIONS_PATH_PREFIX}`,
-                body: stringifyBody(args),
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'POST',
+            endpoint: `${COLLECTIONS_PATH_PREFIX}`,
+            body: stringifyBody(args),
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to create collection.',
@@ -152,14 +137,11 @@ export default class Collections {
         options,
     ) => {
         const { collection_id, ...params } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'PUT',
-                endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}`,
-                body: stringifyBody(params),
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'PUT',
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}`,
+            body: stringifyBody(params),
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to update collection.',
@@ -175,13 +157,10 @@ export default class Collections {
         options,
     ) => {
         const { collection_id } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'DELETE',
-                endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'DELETE',
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to delete collection.',
@@ -203,14 +182,11 @@ export default class Collections {
         options,
     ) => {
         const { collection_id, photo_id } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'POST',
-                endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/add`,
-                body: stringifyBody({ photo_id }),
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'POST',
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/add`,
+            body: stringifyBody({ photo_id }),
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to add photo to collection.',
@@ -232,14 +208,11 @@ export default class Collections {
         options,
     ) => {
         const { collection_id, photo_id } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'DELETE',
-                endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/remove`,
-                body: stringifyBody({ photo_id }),
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'DELETE',
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/remove`,
+            body: stringifyBody({ photo_id }),
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to remove photo from collection.',

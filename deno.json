@@ -3,11 +3,14 @@
     "dev": "deno run --allow-net src/main.ts",
     "dev:watch": "deno run --allow-net --watch src/main.ts",
     "format": "deno fmt src/",
-    "lint": "deno lint src/"
+    "lint": "deno lint src/",
+    "test": "deno test --allow-net src/"
   },
   "imports": {
     "@/": "./src/",
-    "@std/assert": "jsr:@std/assert@1"
+    "@c4spar/mock-fetch": "jsr:@c4spar/mock-fetch@^1.0.0",
+    "@std/assert": "jsr:@std/assert@1",
+    "@std/testing": "jsr:@std/testing@1"
   },
   "lint": {
     "rules": {

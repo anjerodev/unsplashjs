@@ -1,27 +1,34 @@
 import type { FetcherOptions, InitParams } from '@/types/request.ts'
 import type { FetchResponse } from '@/types/response.ts'
 import { isDefined } from '@/helpers/typescript.ts'
+import { assertNotEquals } from '@std/assert'
+import {
+    type MatchRequestOptions,
+    mockFetch,
+    resetFetch,
+} from '@c4spar/mock-fetch'
+import { API_URL } from '@/helpers/constants.ts'
 
-export function fetcherConstructor(
-    {
-        config: {
-            accessKey,
-            apiUrl = 'https://api.unsplash.com',
-            apiVersion = 'v1',
-            requestOptions = {},
-        },
-        options: {
-            method = 'GET',
-            endpoint,
-            query,
-            ...options
-        },
-    }: {
-        config: InitParams
-        options: FetcherOptions
-    },
-) {
-    const url = new URL(`${apiUrl}${endpoint}`)
+export function fetchOptionsConstructor({
+    accessKey,
+    apiUrl,
+    apiVersion = 'v1',
+    endpoint,
+    query,
+    method = 'GET',
+    initRequestOptions = {},
+    requestOptions = {},
+}: {
+    accessKey?: string
+    apiUrl?: string
+    apiVersion?: string
+    endpoint: string
+    query?: Record<string, any>
+    method?: RequestInit['method']
+    initRequestOptions?: RequestInit
+    requestOptions?: RequestInit
+}) {
+    const url = new URL(`${apiUrl || API_URL}${endpoint}`)
 
     if (query) {
         for (const [key, value] of Object.entries(query)) {
@@ -35,12 +42,12 @@ export function fetcherConstructor(
      * Options passed when initializing the client
      */
     const { headers: extraGeneralHeaders, ...extraGeneralOptions } =
-        requestOptions
+        initRequestOptions
 
     /**
      * Options passed when making a request
      */
-    const { headers: extraHeaders, ...extraOptions } = options
+    const { headers: extraHeaders, ...extraOptions } = requestOptions
 
     const headers = new Headers({
         'Accept-Version': apiVersion,
@@ -52,21 +59,34 @@ export function fetcherConstructor(
         headers.append('Authorization', `Client-ID ${accessKey}`)
     }
 
-    console.dir({
-        finalOptions: {
+    return {
+        url,
+        options: {
             method,
             headers,
             ...extraGeneralOptions,
             ...extraOptions,
         },
-    }, { depth: null })
+    }
+}
 
-    return fetch(url, {
+export function fetcherConstructor(
+    config: InitParams,
+    fetcherOptions: FetcherOptions,
+) {
+    const { requestOptions: initRequestOptions, ...restConfig } = config
+    const { endpoint, query, method, ...restOptions } = fetcherOptions
+
+    const { url, options } = fetchOptionsConstructor({
+        ...restConfig,
+        initRequestOptions,
+        endpoint,
+        query,
         method,
-        headers,
-        ...extraGeneralOptions,
-        ...extraOptions,
+        requestOptions: restOptions,
     })
+
+    return fetch(url, options)
 }
 
 export async function parseResponse<T>(
@@ -100,4 +120,41 @@ export function stringifyBody(body: Record<string, any> | undefined) {
             (_, value) => isDefined(value) ? value : undefined,
         )
     }
+}
+
+export async function mockAndAssert({
+    endPoint,
+    method = 'get',
+    body,
+    searchParams,
+    requestFn,
+}: {
+    endPoint: string
+    method?: 'get' | 'post' | 'put' | 'delete'
+    body?: Record<string, any>
+    searchParams?: Record<string, string>
+    requestFn: () => Promise<{ data?: any; error?: any }>
+}) {
+    // Mock fetch with the provided URL and response
+    const url = new URL(`${API_URL}${endPoint}`)
+    const params = new URLSearchParams(searchParams)
+    url.search = params.toString()
+
+    // console.log({ url: url.toString() })
+
+    const matchOptions: MatchRequestOptions = {
+        url: url.toString(),
+        method,
+    }
+
+    if (body) {
+        matchOptions.body = JSON.stringify(body)
+    }
+
+    mockFetch(matchOptions)
+
+    await requestFn()
+
+    assertNotEquals(mockFetch, undefined)
+    resetFetch()
 }

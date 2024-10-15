@@ -19,13 +19,10 @@ export default class Stats {
         _,
         options,
     ) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${STATS_PATH_PREFIX}/total`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${STATS_PATH_PREFIX}/total`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch total stats.',
@@ -38,13 +35,10 @@ export default class Stats {
         _,
         options,
     ) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${STATS_PATH_PREFIX}/month`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${STATS_PATH_PREFIX}/month`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch monthly stats.',

@@ -19,14 +19,11 @@ export default class Search {
         args,
         options,
     ) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${SEARCH_PATH_PREFIX}/photos`,
-                query: args,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${SEARCH_PATH_PREFIX}/photos`,
+            query: args,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch search photos.',
@@ -40,14 +37,11 @@ export default class Search {
         args,
         options,
     ) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${SEARCH_PATH_PREFIX}/collections`,
-                query: args,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${SEARCH_PATH_PREFIX}/collections`,
+            query: args,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch search collections.',
@@ -60,14 +54,11 @@ export default class Search {
         args,
         options,
     ) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${SEARCH_PATH_PREFIX}/users`,
-                query: args,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${SEARCH_PATH_PREFIX}/users`,
+            query: args,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch search users.',

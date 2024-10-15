@@ -3,6 +3,8 @@
  */
 export type Nullable<T> = T | null
 
+export type NonEmptyArray<T> = [T, ...T[]]
+
 export const isDefined = <T>(x: T | null | undefined): x is T =>
   x !== null && x !== undefined
 

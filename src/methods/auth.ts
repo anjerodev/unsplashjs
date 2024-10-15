@@ -1,9 +1,5 @@
 import type * as Authorization from '@/types/auth.ts'
-import type {
-    BaseMethod,
-    InitParams,
-    RequiredArgsBaseMethod,
-} from '@/types/request.ts'
+import type { InitParams, RequiredArgsBaseMethod } from '@/types/request.ts'
 import {
     fetcherConstructor,
     parseResponse,
@@ -47,18 +43,15 @@ export default class Auth {
         options,
     ) => {
         const { grant_type = 'authorization_code', ...params } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'POST',
-                endpoint: OAUTH_TOKEN_PATH_PREFIX,
-                body: stringifyBody({
-                    client_id: this.config.accessKey,
-                    grant_type,
-                    ...params,
-                }),
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'POST',
+            endpoint: OAUTH_TOKEN_PATH_PREFIX,
+            body: stringifyBody({
+                client_id: this.config.accessKey,
+                grant_type,
+                ...params,
+            }),
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to authorize.',

@@ -33,14 +33,11 @@ export default class Photos {
         args,
         options,
     ) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${PHOTOS_PATH_PREFIX}`,
-                query: args,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${PHOTOS_PATH_PREFIX}`,
+            query: args,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch photos.',
@@ -55,13 +52,10 @@ export default class Photos {
         options,
     ) => {
         const { photo_id } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch photo.',
@@ -87,25 +81,22 @@ export default class Photos {
         const { collections, topics, ...params } = args ?? {}
         const { headers, ...restOptions } = options ?? {}
 
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${PHOTOS_PATH_PREFIX}/random`,
-                query: {
-                    ...params,
-                    collections: collections?.join(','),
-                    topics: topics?.join(','),
-                },
-                headers: {
-                    /**
-                     * Avoid response caching
-                     */
-                    'cache-control': 'no-cache',
-                    ...headers,
-                },
-                ...restOptions,
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${PHOTOS_PATH_PREFIX}/random`,
+            query: {
+                ...params,
+                collections: collections?.join(','),
+                topics: topics?.join(','),
             },
+            headers: {
+                /**
+                 * Avoid response caching
+                 */
+                'cache-control': 'no-cache',
+                ...headers,
+            },
+            ...restOptions,
         })
 
         if (args?.count && args.count > 1) {
@@ -128,14 +119,11 @@ export default class Photos {
         options,
     ) => {
         const { photo_id, ...params } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/statistics`,
-                query: params,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/statistics`,
+            query: params,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch photo.',
@@ -151,13 +139,10 @@ export default class Photos {
         options,
     ) => {
         const { photo_id } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/download`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/download`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to track download.',
@@ -173,14 +158,11 @@ export default class Photos {
         options,
     ) => {
         const { id: photo_id, ...data } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'PUT',
-                endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}`,
-                body: stringifyBody(data),
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'PUT',
+            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}`,
+            body: stringifyBody(data),
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to update photo.',
@@ -196,13 +178,10 @@ export default class Photos {
         options,
     ) => {
         const { photo_id } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'POST',
-                endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/like`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'POST',
+            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/like`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to like photo.',
@@ -218,13 +197,10 @@ export default class Photos {
         options,
     ) => {
         const { photo_id } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'DELETE',
-                endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/like`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'DELETE',
+            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/like`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to unlike photo.',

@@ -13,14 +13,14 @@ export type IdOrSlugParam = {
 }
 
 export type IdsParam = {
-  ids: string[]
+  ids?: string[]
 }
 
 export type ListParams =
   & IdsParam
   & Omit<PaginationParams, 'order_by'>
   & {
-    order_by: TopicOrderBy
+    order_by?: TopicOrderBy
   }
 
 export interface VeryBasic extends Entity {

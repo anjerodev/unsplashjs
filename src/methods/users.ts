@@ -26,13 +26,10 @@ export default class Users {
      * To access a user’s private data, the user is required to authorize the `read_user` scope.
      */
     getCurrent: BaseMethod<never, User.Current> = (_, options) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: '/me',
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: '/me',
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch current user.',
@@ -46,14 +43,11 @@ export default class Users {
         args,
         options,
     ) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'PUT',
-                endpoint: `/me`,
-                body: stringifyBody(args),
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'PUT',
+            endpoint: `/me`,
+            body: stringifyBody(args),
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to update current user.',
@@ -65,13 +59,10 @@ export default class Users {
      */
     get: RequiredArgsBaseMethod<User.Username, User.Full> = (args, options) => {
         const { username } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${USERS_PATH_PREFIX}/${username}`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${USERS_PATH_PREFIX}/${username}`,
+            ...options,
         })
         return parseResponse<User.Full>(respPromise, {
             errorMessage: 'Failed to fetch user.',
@@ -86,13 +77,10 @@ export default class Users {
         options,
     ) => {
         const { username } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${USERS_PATH_PREFIX}/${username}/portfolio`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${USERS_PATH_PREFIX}/${username}/portfolio`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch user portfolio.',
@@ -110,14 +98,11 @@ export default class Users {
         options,
     ) => {
         const { username, ...params } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${USERS_PATH_PREFIX}/${username}/photos`,
-                query: params,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${USERS_PATH_PREFIX}/${username}/photos`,
+            query: params,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch user photos.',
@@ -135,14 +120,11 @@ export default class Users {
         options,
     ) => {
         const { username, ...params } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${USERS_PATH_PREFIX}/${username}/likes`,
-                query: params,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${USERS_PATH_PREFIX}/${username}/likes`,
+            query: params,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch user liked photos.',
@@ -160,14 +142,11 @@ export default class Users {
         options,
     ) => {
         const { username, ...params } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${USERS_PATH_PREFIX}/${username}/collections`,
-                query: params,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${USERS_PATH_PREFIX}/${username}/collections`,
+            query: params,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch user collections.',
@@ -183,14 +162,11 @@ export default class Users {
         options,
     ) => {
         const { username, ...params } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${USERS_PATH_PREFIX}/${username}/statistics`,
-                query: params,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${USERS_PATH_PREFIX}/${username}/statistics`,
+            query: params,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch user stats.',

@@ -23,17 +23,14 @@ export default class Topics {
      * the param `ids` also accept topic slugs
      */
     list: BaseMethod<Topic.ListParams, Topic.Basic[]> = (args, options) => {
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${TOPICS_PATH_PREFIX}`,
-                query: {
-                    ...args,
-                    ids: args?.ids?.join(','),
-                },
-                ...options,
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${TOPICS_PATH_PREFIX}`,
+            query: {
+                ...args,
+                ids: args?.ids?.join(','),
             },
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch topics.',
@@ -48,13 +45,10 @@ export default class Topics {
         options,
     ) => {
         const { id_or_slug } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${TOPICS_PATH_PREFIX}/${id_or_slug}`,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${TOPICS_PATH_PREFIX}/${id_or_slug}`,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch topic.',
@@ -72,14 +66,11 @@ export default class Topics {
         options,
     ) => {
         const { id_or_slug, ...params } = args
-        const respPromise = fetcherConstructor({
-            config: this.config,
-            options: {
-                method: 'GET',
-                endpoint: `${TOPICS_PATH_PREFIX}/${id_or_slug}/photos`,
-                query: params,
-                ...options,
-            },
+        const respPromise = fetcherConstructor(this.config, {
+            method: 'GET',
+            endpoint: `${TOPICS_PATH_PREFIX}/${id_or_slug}/photos`,
+            query: params,
+            ...options,
         })
         return parseResponse(respPromise, {
             errorMessage: 'Failed to fetch topic photos.',
