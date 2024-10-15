@@ -14,9 +14,28 @@ import {
     parseResponse,
     stringifyBody,
 } from '@/helpers/utils.ts'
-import type { Range } from '@/helpers/typescript.ts'
+import { isDefined, type Range } from '@/helpers/typescript.ts'
 
 const PHOTOS_PATH_PREFIX = '/photos'
+
+const setPerPage = (value: number | undefined): number | undefined => {
+    if (!isDefined(value)) return undefined
+
+    if (value === 0) {
+        /**
+         * For some reason when the param `per_page` is set to 1, the API responds
+         * with an empty array, so we can use it to cast the `per_page`
+         * when is set to 0 and return an empty array with the total count.
+         */
+        return 1
+    }
+
+    if (value === 1) {
+        return undefined
+    }
+
+    return value
+}
 
 export default class Photos {
     private config: InitParams
@@ -36,7 +55,10 @@ export default class Photos {
         const respPromise = fetcherConstructor(this.config, {
             method: 'GET',
             endpoint: `${PHOTOS_PATH_PREFIX}`,
-            query: args,
+            query: {
+                ...args,
+                per_page: setPerPage(args?.per_page),
+            },
             ...options,
         })
         return parseResponse(respPromise, {
