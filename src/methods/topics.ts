@@ -47,7 +47,7 @@ export default class Topics {
         const { id_or_slug } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'GET',
-            endpoint: `${TOPICS_PATH_PREFIX}/${id_or_slug}`,
+            endpoint: `${TOPICS_PATH_PREFIX}/${encodeURIComponent(id_or_slug)}`,
             ...options,
         })
         return parseResponse(respPromise, {
@@ -68,7 +68,9 @@ export default class Topics {
         const { id_or_slug, ...params } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'GET',
-            endpoint: `${TOPICS_PATH_PREFIX}/${id_or_slug}/photos`,
+            endpoint: `${TOPICS_PATH_PREFIX}/${
+                encodeURIComponent(id_or_slug)
+            }/photos`,
             query: params,
             ...options,
         })

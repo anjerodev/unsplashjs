@@ -54,7 +54,7 @@ export default class Photos {
         const { photo_id } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'GET',
-            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}`,
+            endpoint: `${PHOTOS_PATH_PREFIX}/${encodeURIComponent(photo_id)}`,
             ...options,
         })
         return parseResponse(respPromise, {
@@ -121,7 +121,9 @@ export default class Photos {
         const { photo_id, ...params } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'GET',
-            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/statistics`,
+            endpoint: `${PHOTOS_PATH_PREFIX}/${
+                encodeURIComponent(photo_id)
+            }/statistics`,
             query: params,
             ...options,
         })
@@ -141,7 +143,9 @@ export default class Photos {
         const { photo_id } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'GET',
-            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/download`,
+            endpoint: `${PHOTOS_PATH_PREFIX}/${
+                encodeURIComponent(photo_id)
+            }/download`,
             ...options,
         })
         return parseResponse(respPromise, {
@@ -160,7 +164,7 @@ export default class Photos {
         const { id: photo_id, ...data } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'PUT',
-            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}`,
+            endpoint: `${PHOTOS_PATH_PREFIX}/${encodeURIComponent(photo_id)}`,
             body: stringifyBody(data),
             ...options,
         })
@@ -180,7 +184,7 @@ export default class Photos {
         const { photo_id } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'POST',
-            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/like`,
+            endpoint: `${PHOTOS_PATH_PREFIX}/${encodeURI(photo_id)}/like`,
             ...options,
         })
         return parseResponse(respPromise, {
@@ -199,7 +203,9 @@ export default class Photos {
         const { photo_id } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'DELETE',
-            endpoint: `${PHOTOS_PATH_PREFIX}/${photo_id}/like`,
+            endpoint: `${PHOTOS_PATH_PREFIX}/${
+                encodeURIComponent(photo_id)
+            }/like`,
             ...options,
         })
         return parseResponse(respPromise, {

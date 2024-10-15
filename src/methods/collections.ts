@@ -52,7 +52,9 @@ export default class Collections {
         const { collection_id } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'GET',
-            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}`,
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${
+                encodeURIComponent(collection_id)
+            }`,
             ...options,
         })
         return parseResponse(respPromise, {
@@ -73,7 +75,9 @@ export default class Collections {
         const { collection_id, ...params } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'GET',
-            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/photos`,
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${
+                encodeURIComponent(collection_id)
+            }/photos`,
             query: params,
             ...options,
         })
@@ -95,7 +99,9 @@ export default class Collections {
         const { collection_id } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'GET',
-            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/related`,
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${
+                encodeURIComponent(collection_id)
+            }/related`,
             ...options,
         })
         return parseResponse(respPromise, {
@@ -139,7 +145,9 @@ export default class Collections {
         const { collection_id, ...params } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'PUT',
-            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}`,
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${
+                encodeURIComponent(collection_id)
+            }`,
             body: stringifyBody(params),
             ...options,
         })
@@ -159,7 +167,9 @@ export default class Collections {
         const { collection_id } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'DELETE',
-            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}`,
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${
+                encodeURIComponent(collection_id)
+            }`,
             ...options,
         })
         return parseResponse(respPromise, {
@@ -184,7 +194,9 @@ export default class Collections {
         const { collection_id, photo_id } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'POST',
-            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/add`,
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${
+                encodeURIComponent(collection_id)
+            }/add`,
             body: stringifyBody({ photo_id }),
             ...options,
         })
@@ -210,7 +222,9 @@ export default class Collections {
         const { collection_id, photo_id } = args
         const respPromise = fetcherConstructor(this.config, {
             method: 'DELETE',
-            endpoint: `${COLLECTIONS_PATH_PREFIX}/${collection_id}/remove`,
+            endpoint: `${COLLECTIONS_PATH_PREFIX}/${
+                encodeURIComponent(collection_id)
+            }/remove`,
             body: stringifyBody({ photo_id }),
             ...options,
         })
