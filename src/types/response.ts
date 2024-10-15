@@ -9,11 +9,12 @@ export type ErrorType = {
 export interface ResponseSuccess<T> {
   data: T
   error?: undefined
-  count?: number
+  total?: number
 }
 export interface ResponseFailure {
   error: ErrorType
   data?: undefined
+  total?: undefined
 }
 
 export type FetchResponse<T> = ResponseSuccess<T> | ResponseFailure

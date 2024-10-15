@@ -1,4 +1,4 @@
-import * as SearchT from '@/types/search.ts'
+import type * as SearchT from '@/types/search.ts'
 import type { BaseMethod, InitParams } from '@/types/request.ts'
 
 import { fetcherConstructor, parseResponse } from '@/helpers/utils.ts'
