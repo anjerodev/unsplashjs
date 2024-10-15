@@ -89,12 +89,27 @@ export function fetcherConstructor(
     return fetch(url, options)
 }
 
+const TOTAL_RESPONSE_HEADER = 'x-total'
+export function getTotalFromApiFeedResponse(
+    response: Response,
+): number | undefined {
+    const totalsStr = response.headers.get(TOTAL_RESPONSE_HEADER)
+    if (isDefined(totalsStr)) {
+        const total = parseInt(totalsStr)
+        if (Number.isInteger(total)) {
+            return total
+        }
+    }
+}
+
 export async function parseResponse<T>(
     responsePromise: Promise<Response>,
     options?: { errorMessage?: string },
 ): Promise<FetchResponse<T>> {
     try {
         const resp = await responsePromise
+
+        const total = getTotalFromApiFeedResponse(resp)
 
         if (!resp.ok) {
             throw {
@@ -105,7 +120,7 @@ export async function parseResponse<T>(
         }
 
         const data: T = await resp.json()
-        return { data }
+        return { data, total }
     } catch (error: any) {
         return {
             error: { message: error.message, ...error },
