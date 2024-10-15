@@ -8,7 +8,7 @@ For some unknown reason, the [official Unsplash Javascript SDK](https://github.c
 
 With this SDK, I intend to provide a more complete and up-to-date wrapper for the Unsplash API.
 
-The library is based in the official, but with some key changes in the response handling, which always will returns an object with the properties `data` and `error`.
+The library is based in the official, but with some key changes in the response handling, which always will returns an object with the properties `data`, `error` and `total`.
 
 ## Installation
 
@@ -53,7 +53,7 @@ const unsplash = new UnsplashClient({
 });
 
 unsplash.photos.get({ photo_id: "123" }).then((result) => {
-  const { data, error } = result;
+  const { data, error, total } = result;
 
   if (error) {
     console.error(error);
@@ -69,3 +69,9 @@ unsplash.photos.get({ photo_id: "123" }).then((result) => {
 ### Obtaining an Unsplash Access Key
 
 Create an account on [Unsplash](https://unsplash.com/join), and then on your [Developer dashboard](https://unsplash.com/oauth/applications), create a new application.
+
+## What this library adds to the official Unsplash API
+
+- More complete and updated types.
+- Automatic type inference for getRandom photos depending if `count` params is provided or not.
+- Bring back Authentication workflow methods.
