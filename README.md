@@ -10,6 +10,12 @@ With this SDK, I intend to provide a more complete and up-to-date wrapper for th
 
 The library is based in the official, but with some key changes in the response handling, which always will returns an object with the properties `data` and `error`.
 
+## Installation
+
+This is a Deno package, but it can be used in Node.js as well.
+
+You can find the installation commands for every package manager in the [jsr package documentation](https://jsr.io/@anjerodev/unsplashjs).
+
 ## Usage
 
 ### Declare the client
