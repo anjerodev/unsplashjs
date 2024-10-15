@@ -18,7 +18,7 @@ export default class Auth {
 
     getAuthenticationUrl(
         args: Authorization.AuthorizationParams,
-    ) {
+    ): string | undefined {
         const { scope = ['public'], response_type = 'code', redirect_uri } =
             args
 
