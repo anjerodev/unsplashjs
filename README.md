@@ -10,24 +10,6 @@ With this SDK, I intend to provide a more complete and up-to-date wrapper for th
 
 The library is based in the official, but with some key changes in the response handling, which always will returns an object with the properties `data` and `error`.
 
-## Installation
-
-```shell
-npm install unsplashjs
-```
-
-```shell
-pnpm install unsplashjs
-```
-
-```shell
-yarn install unsplashjs
-```
-
-```shell
-bun install unsplashjs
-```
-
 ## Usage
 
 ### Declare the client
